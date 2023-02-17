@@ -1,5 +1,6 @@
 import pygame,sys
-def check_event(ship,bullet):
+from bullet import Bullet
+def check_event(ship,bullet,bullets,settings):
     # 检查输入并给出反馈
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -16,7 +17,10 @@ def check_event(ship,bullet):
 
                 ship.move_down = True
             elif event.key == pygame.K_SPACE:
-                bullet.move = True
+                new_bullet = Bullet(ship,settings)
+                bullets.add(new_bullet)
+                print(len(bullets))
+
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
@@ -37,6 +41,19 @@ def check_event(ship,bullet):
                 sys.exit()
         if event.type == pygame.QUIT:
             sys.exit()
+def update_screen(bullets,screen):
+    for bullet in bullets.sprites():
+        bullet.draw_bullet(screen)
+        bullet.update()
+
+def del_bullet(bullets):
+    for bullet in bullets.copy():
+        if bullet.rect.bottom <= 0:
+            bullets.remove(bullet)
+
+
+
+
 
 
 

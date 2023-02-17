@@ -4,6 +4,9 @@ import pygame,os,random,sys,gf
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from pygame.sprite import Group
+bullets = Group()
+
 
 settings = Settings()
 
@@ -14,13 +17,14 @@ bullet = Bullet(ship,settings)
 pygame.display.set_caption("飞机大战")
 
 while True:
-    gf.check_event(ship,bullet)
+    gf.check_event(ship,bullet,bullets,settings)
     screen.fill(settings.bg_color)
+    gf.update_screen(bullets,screen)
+    gf.del_bullet(bullets)
 
     ship.update()
     ship.draw_ship()
-    bullet.draw_bullet(screen)
-    bullet.emit()
+
 
     pygame.display.update()
     pygame.display.flip()

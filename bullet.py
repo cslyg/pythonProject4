@@ -3,7 +3,7 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self,ship,settings):
         pygame.sprite.Sprite.__init__(self)
         self.settings = settings
-        self.rect = pygame.Rect(0,0,20,20)
+        self.rect = pygame.Rect(0,0,15,30)
         self.color = settings.bullet_color
         self.move = False
 
@@ -15,8 +15,9 @@ class Bullet(pygame.sprite.Sprite):
         self.y = float(self.rect.y)
 
 
-    def emit(self):
-        if self.move:
+
+    def update(self):
+        # if self.move:
             self.y -= self.settings.bullet_speed
             self.rect.y = self.y
 
