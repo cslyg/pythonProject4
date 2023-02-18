@@ -1,6 +1,6 @@
 import pygame,sys
 from bullet import Bullet
-def check_event(ship,bullet,bullets,settings):
+def check_event(ship,bullets,settings):
     # 检查输入并给出反馈
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -50,6 +50,7 @@ def del_bullet(bullets):
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+
 
 
 
