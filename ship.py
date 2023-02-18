@@ -17,8 +17,9 @@ class Ship(pygame.sprite.Sprite):
 
         # 设定飞机的初始位置
         self.rect.centerx = self.screen_rect.centerx
-        self.rect.bottom = self.screen_rect.bottom
-        self.x = float(self.rect.x)
+        self.rect.centery = self.screen_rect.bottom
+
+        self.x = float(self.rect.centerx)
         self.y = float(self.rect.y)
 
 
@@ -37,6 +38,7 @@ class Ship(pygame.sprite.Sprite):
 
 
     def right(self):
+
         if self.move_right and self.rect.right <= self.screen_rect.right:
 
             self.x += self.settings.ship_speed

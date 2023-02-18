@@ -19,8 +19,9 @@ def check_event(ship,bullets,settings):
 
                 ship.move_down = True
             elif event.key == pygame.K_SPACE:
-                new_bullet = Bullet(ship,settings)
-                bullets.add(new_bullet)
+                if len(bullets) <2:
+                    new_bullet = Bullet(ship,settings)
+                    bullets.add(new_bullet)
                 # print(len(bullets))
 
 

@@ -43,6 +43,11 @@ while True:
 
 
     pygame.sprite.groupcollide(enemies,bullets,True,True)
+    if pygame.sprite.spritecollideany(ship,enemies):
+        print("飞船被击中！！！")
+        ship.x = ship.screen_rect.centerx
+        ship.y = ship.screen_rect.bottom
+
     pygame.display.update()
     # pygame.display.flip()
 
