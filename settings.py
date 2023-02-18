@@ -7,3 +7,4 @@ class Settings:
         self.bullet_color = (20,20,200)
         self.enemy_speedx = 1.9
         self.enemy_speedy = 0.08
+        self.enemy_width = 41

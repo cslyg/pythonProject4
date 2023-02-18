@@ -1,5 +1,7 @@
 import pygame,sys
 from bullet import Bullet
+from enemy import Enemy
+from ship import Ship
 def check_event(ship,bullets,settings):
     # 检查输入并给出反馈
     for event in pygame.event.get():
@@ -19,7 +21,7 @@ def check_event(ship,bullets,settings):
             elif event.key == pygame.K_SPACE:
                 new_bullet = Bullet(ship,settings)
                 bullets.add(new_bullet)
-                print(len(bullets))
+                # print(len(bullets))
 
 
         if event.type == pygame.KEYUP:
@@ -41,15 +43,47 @@ def check_event(ship,bullets,settings):
                 sys.exit()
         if event.type == pygame.QUIT:
             sys.exit()
-def update_screen(bullets,screen):
+def update_screen(bullets,screen,enemies):
+    enemies.draw(screen)
+    enemies.update()
+
     for bullet in bullets.sprites():
         bullet.draw_bullet(screen)
         bullet.update()
 
-def del_bullet(bullets):
+
+
+
+def del_bullet(bullets,screen,settings,enemies):
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
             bullets.remove(bullet)
+    for enemy in enemies.copy():
+        if enemy.rect.bottom <= 0:
+            enemies.remove(enemy)
+
+
+
+def create_enemy(enemies,screen,settings):
+    for serial in range(get_nums(screen,settings)):
+        enemy = Enemy(screen,settings)
+        enemy.x =3 * settings.enemy_width*serial
+        enemy.rect.x = enemy.x
+        enemies.add(enemy)
+
+
+
+def get_nums(screen,settings):
+    screen_rect = screen.get_rect()
+    x_length = screen_rect.right
+    distance = 3*settings.enemy_width
+    nums = int(x_length/distance)
+    return nums-5
+
+
+
+
+
 
 
 

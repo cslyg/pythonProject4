@@ -10,38 +10,40 @@ bullets = Group()
 enemies = Group()
 
 
+
 settings = Settings()
 
 screen = pygame.display.set_mode(settings.screen_size)
 ship = Ship(screen,settings)
-bullet = Bullet(ship,settings)
-enemy = Enemy(screen,settings)
+# bullet = Bullet(ship,settings)
+#
+
+
 
 pygame.display.set_caption("飞机大战")
-enemy.enemy_randomx()
-def collide():
-    pygame.sprite.spritecollide(enemy,bullets,True)
+# enemy.enemy_randomx()
+
 
 while True:
-    enemy.direction_x()
     gf.check_event(ship,bullets,settings)
     screen.fill(settings.bg_color)
-    gf.update_screen(bullets,screen)
-    gf.del_bullet(bullets)
-    enemy.draw_enemy()
 
-    enemy.enemy_y()
-    enemy.enemy_x()
+
 
     ship.update()
     ship.draw_ship()
-    collide()
+    gf.update_screen(bullets, screen, enemies)
+    gf.del_bullet(bullets,screen,settings,enemies)
+    # print(len(enemies))
+    if len(enemies) == 0:
+        gf.create_enemy(enemies, screen, settings)
 
 
 
 
 
+    pygame.sprite.groupcollide(enemies,bullets,True,True)
     pygame.display.update()
-    pygame.display.flip()
+    # pygame.display.flip()
 
 

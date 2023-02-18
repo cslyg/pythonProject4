@@ -1,6 +1,7 @@
 import pygame
-class Ship:
+class Ship(pygame.sprite.Sprite):
     def __init__(self,screen,settings):
+        pygame.sprite.Sprite.__init__(self)
         self.screen = screen
         self.settings = settings
         # 载入图片并获取其外接矩形
