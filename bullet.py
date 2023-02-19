@@ -3,7 +3,7 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self,ship,settings):
         pygame.sprite.Sprite.__init__(self)
         self.settings = settings
-        self.rect = pygame.Rect(0,0,15,30)
+        self.rect = pygame.Rect(0,0,5,15)
         self.color = settings.bullet_color
         self.move = False
 

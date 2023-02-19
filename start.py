@@ -30,23 +30,21 @@ while True:
 
 
 
-    ship.update()
-    ship.draw_ship()
-    gf.update_screen(bullets, screen, enemies)
-    gf.del_bullet(bullets,screen,settings,enemies)
+
+    gf.update_screen(ship,bullets, screen, enemies)
+    gf.del_bullet(bullets
+                  )
     # print(len(enemies))
-    if len(enemies) == 0:
-        gf.create_enemy(enemies, screen, settings)
+    gf.create_enemy(enemies, screen, settings)
 
 
 
 
 
     pygame.sprite.groupcollide(enemies,bullets,True,True)
-    if pygame.sprite.spritecollideany(ship,enemies):
-        print("飞船被击中！！！")
-        ship.x = ship.screen_rect.centerx
-        ship.y = ship.screen_rect.bottom
+    gf.ship_hit(ship,enemies,settings)
+
+
 
     pygame.display.update()
     # pygame.display.flip()
