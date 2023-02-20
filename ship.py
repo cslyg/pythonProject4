@@ -39,12 +39,12 @@ class Ship(pygame.sprite.Sprite):
 
     def right(self):
 
-        if self.move_right and self.rect.right <= self.screen_rect.right:
+        if self.move_right and self.rect.centerx <= self.screen_rect.right:
 
             self.x += self.settings.ship_speed
             self.rect.x = self.x
     def left(self):
-        if self.move_left and self.rect.left >= self.screen_rect.left:
+        if self.move_left and self.rect.centerx >= self.screen_rect.left:
 
             self.x -= self.settings.ship_speed
             self.rect.x = self.x

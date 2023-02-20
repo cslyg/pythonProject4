@@ -35,7 +35,7 @@ def check_event(ship,bullets,settings,stats,play_button):
 
 
             elif event.key == pygame.K_SPACE:
-                if len(bullets) <2:
+                if len(bullets) <4:
                     new_bullet = Bullet(ship,settings)
                     bullets.add(new_bullet)
                 # print(len(bullets))
@@ -96,6 +96,7 @@ def create_enemy(enemies, screen, settings,stats):
         if len(enemies) == 0:
             for serial in range(get_nums(screen, settings)):
                 enemy = Enemy(screen, settings)
+                settings.increse_speed()
                 enemy.x = 3 * settings.enemy_width*serial
                 enemy.rect.x = enemy.x
                 enemies.add(enemy)
@@ -107,7 +108,7 @@ def get_nums(screen,settings):
     x_length = screen_rect.right
     distance = 3*settings.enemy_width
     nums = int(x_length/distance)
-    return nums
+    return nums-3
 
 
 
@@ -138,6 +139,12 @@ def check_play_button(stats,play_button,mouse_x,mouse_y):
     if play_button.rect.collidepoint(mouse_x,mouse_y) :
         stats.game_active = True
         pygame.mouse.set_visible(False)
+
+def hit_screen(screen,enemies):
+    screen_rect = screen.get_rect()
+    for enemy in enemies.sprites():
+        if enemy.rect.top == screen_rect.bottom:
+            enemies.remove(enemy)
 
 
 

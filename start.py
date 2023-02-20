@@ -45,7 +45,8 @@ while True:
 
     pygame.sprite.groupcollide(enemies,bullets,True,True)
     gf.ship_hit(ship,enemies,settings,stats)
-    stats.reset_stats(ship,enemies)
+    gf.hit_screen(screen,enemies)
+    stats.reset_stats(ship,enemies,settings)
 
 
 
