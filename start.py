@@ -8,15 +8,16 @@ from pygame.sprite import Group
 from enemy import Enemy
 bullets = Group()
 enemies = Group()
+from game_stats import GameStats
 
 
 
 settings = Settings()
+stats = GameStats(settings)
 
 screen = pygame.display.set_mode(settings.screen_size)
 ship = Ship(screen,settings)
-# bullet = Bullet(ship,settings)
-#
+
 
 
 
@@ -31,18 +32,18 @@ while True:
 
 
 
-    gf.update_screen(ship,bullets, screen, enemies)
-    gf.del_bullet(bullets
-                  )
+    gf.update_screen(ship,bullets, screen, enemies,stats)
+    gf.del_bullet(bullets,stats)
     # print(len(enemies))
-    gf.create_enemy(enemies, screen, settings)
+    gf.create_enemy(enemies, screen, settings,stats)
 
 
 
 
 
     pygame.sprite.groupcollide(enemies,bullets,True,True)
-    gf.ship_hit(ship,enemies,settings)
+    gf.ship_hit(ship,enemies,settings,stats)
+    stats.reset_stats(ship,enemies)
 
 
 

@@ -60,36 +60,38 @@ def check_event(ship,bullets,settings):
                 sys.exit()
         if event.type == pygame.QUIT:
             sys.exit()
-def update_screen(ship,bullets,screen,enemies):
-    enemies.draw(screen)
-    enemies.update()
-    ship.update()
-    ship.draw_ship()
+def update_screen(ship,bullets,screen,enemies,stats):
+    if stats.game_active:
+        enemies.draw(screen)
+        enemies.update()
+        ship.update()
+        ship.draw_ship()
 
-    for bullet in bullets.sprites():
-        bullet.draw_bullet(screen)
-        bullet.update()
-
-
-
-
-def del_bullet(bullets):
-    for bullet in bullets.copy():
-        if bullet.rect.bottom <= 0:
-            bullets.remove(bullet)
+        for bullet in bullets.sprites():
+            bullet.draw_bullet(screen)
+            bullet.update()
 
 
 
 
+def del_bullet(bullets,stats):
+    if stats.game_active:
+        for bullet in bullets.copy():
+            if bullet.rect.bottom <= 0:
+                bullets.remove(bullet)
 
-def create_enemy(enemies, screen, settings):
-    if len(enemies) == 0:
 
-        for serial in range(get_nums(screen, settings)):
-            enemy = Enemy(screen, settings)
-            enemy.x = 3 * settings.enemy_width*serial
-            enemy.rect.x = enemy.x
-            enemies.add(enemy)
+
+
+
+def create_enemy(enemies, screen, settings,stats):
+    if stats.game_active:
+        if len(enemies) == 0:
+            for serial in range(get_nums(screen, settings)):
+                enemy = Enemy(screen, settings)
+                enemy.x = 3 * settings.enemy_width*serial
+                enemy.rect.x = enemy.x
+                enemies.add(enemy)
 
 
 
@@ -104,17 +106,34 @@ def get_nums(screen,settings):
 
 
 from time import sleep
-def ship_hit(ship,enemies,settings):
+def ship_hit(ship,enemies,settings,stats):
     """响应飞船碰撞"""
-    if pygame.sprite.spritecollideany(ship,enemies):
-        print("飞船被击中！！！")
-        #被击中时复位飞船
+    if stats.game_active:
+    # 碰撞后，复位飞船，同时飞船数量减1,与飞船碰撞的敌人也被消灭。
+        if pygame.sprite.spritecollideany(ship,enemies):
+            for enemy in enemies.sprites():
+                if pygame.sprite.spritecollideany(ship, enemies):
+                    enemies.remove(enemy)
 
-        ship.move_down = True
-        ship.x = ship.screen_rect.centerx
-        ship.y = ship.screen_rect.bottom - 100
-        settings.ship_num -= 1
-        print(settings.ship_num)
+            print("飞船被击中！！！")
+            #被击中时复位飞船
+
+            ship.move_down = True
+            ship.x = ship.screen_rect.centerx
+            ship.y = ship.screen_rect.bottom - 100
+            settings.ship_num -= 1
+
+            print("还剩余" + str(settings.ship_num) + "艘飞船")
+            sleep(0.5)
+
+# def reset_state(settings,stats):
+#     """一局结束后，重置统计信息。"""
+#     #飞船用完后，重置为上限。
+#     if settings.ship_num <= 0:
+#         settings.ship_num = settings.ship_limit
+#     print("飞船数量已经重置为" + str(settings.ship_num) + "艘")
+
+
 
 
 
