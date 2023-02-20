@@ -3,7 +3,7 @@ from bullet import Bullet
 from enemy import Enemy
 from ship import Ship
 
-def check_event(ship,bullets,settings):
+def check_event(ship,bullets,settings,stats,play_button):
     # 检查输入并给出反馈
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
@@ -60,16 +60,23 @@ def check_event(ship,bullets,settings):
                 sys.exit()
         if event.type == pygame.QUIT:
             sys.exit()
-def update_screen(ship,bullets,screen,enemies,stats):
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_x,mouse_y = pygame.mouse.get_pos()
+            check_play_button(stats,play_button,mouse_x,mouse_y)
+def update_screen(ship,bullets,screen,enemies,stats,paly_button):
+
     if stats.game_active:
         enemies.draw(screen)
         enemies.update()
         ship.update()
         ship.draw_ship()
 
+
         for bullet in bullets.sprites():
             bullet.draw_bullet(screen)
             bullet.update()
+    else:
+        paly_button.draw_button()
 
 
 
@@ -100,7 +107,7 @@ def get_nums(screen,settings):
     x_length = screen_rect.right
     distance = 3*settings.enemy_width
     nums = int(x_length/distance)
-    return nums-3
+    return nums
 
 
 
@@ -126,12 +133,11 @@ def ship_hit(ship,enemies,settings,stats):
             print("还剩余" + str(settings.ship_num) + "艘飞船")
             sleep(0.5)
 
-# def reset_state(settings,stats):
-#     """一局结束后，重置统计信息。"""
-#     #飞船用完后，重置为上限。
-#     if settings.ship_num <= 0:
-#         settings.ship_num = settings.ship_limit
-#     print("飞船数量已经重置为" + str(settings.ship_num) + "艘")
+def check_play_button(stats,play_button,mouse_x,mouse_y):
+    """在玩家点击play的时候开始游戏"""
+    if play_button.rect.collidepoint(mouse_x,mouse_y) :
+        stats.game_active = True
+        pygame.mouse.set_visible(False)
 
 
 
