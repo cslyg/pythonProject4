@@ -63,13 +63,14 @@ def check_event(ship,bullets,settings,stats,play_button):
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x,mouse_y = pygame.mouse.get_pos()
             check_play_button(stats,play_button,mouse_x,mouse_y)
-def update_screen(ship,bullets,screen,enemies,stats,paly_button):
+def update_screen(ship,bullets,screen,enemies,stats,paly_button,scoreboard,settings):
 
     if stats.game_active:
         enemies.draw(screen)
         enemies.update()
         ship.update()
         ship.draw_ship()
+        scoreboard.draw_score(settings)
 
 
         for bullet in bullets.sprites():

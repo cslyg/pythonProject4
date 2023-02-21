@@ -10,6 +10,7 @@ bullets = Group()
 enemies = Group()
 from game_stats import GameStats
 from button import Button
+from scoreboard import Scoreboard
 msg = "PLAY"
 
 
@@ -21,7 +22,7 @@ stats = GameStats(settings)
 screen = pygame.display.set_mode(settings.screen_size)
 ship = Ship(screen,settings)
 play_button = Button(settings,screen,msg)
-
+scoreboard = Scoreboard(settings,screen)
 
 
 pygame.display.set_caption("飞机大战")
@@ -34,7 +35,7 @@ while True:
 
 
 
-    gf.update_screen(ship,bullets, screen, enemies,stats,play_button)
+    gf.update_screen(ship,bullets, screen, enemies,stats,play_button,scoreboard,settings)
     gf.del_bullet(bullets,stats)
     # print(len(enemies))
     gf.create_enemy(enemies, screen, settings,stats)

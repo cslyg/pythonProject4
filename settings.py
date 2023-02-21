@@ -14,7 +14,7 @@ class Settings:
         self.enemy_speedy = 0.08
         self.enemy_width = 41
         self.speedup = 1.05
-
+        self.score = "0"
     def increse_speed(self):
         """提高速度"""
 
