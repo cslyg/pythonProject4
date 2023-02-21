@@ -94,7 +94,7 @@ def del_bullet(bullets,stats):
 
 def create_enemy(enemies, screen, settings,stats):
     if stats.game_active:
-        if len(enemies) == 0:
+        if len(enemies) <= 2:
             for serial in range(get_nums(screen, settings)):
                 enemy = Enemy(screen, settings)
                 settings.increse_speed()
@@ -149,6 +149,13 @@ def hit_screen(screen,enemies):
 
 
 
+
+
+def score_stats(settings,enemies,bullets):
+    if pygame.sprite.groupcollide(enemies,bullets,True,True):
+        int_score = int(settings.score)
+        int_score += 1
+        settings.score = str(int_score)
 
 
 

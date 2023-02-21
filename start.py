@@ -1,32 +1,31 @@
-# import sys
-#
-import pygame,os,random,sys,gf
+
+import pygame,gf
 from settings import Settings
 from ship import Ship
-from bullet import Bullet
 from pygame.sprite import Group
-from enemy import Enemy
-bullets = Group()
-enemies = Group()
 from game_stats import GameStats
 from button import Button
 from scoreboard import Scoreboard
+
 msg = "PLAY"
 
 
 
-
+bullets = Group()
+enemies = Group()
 settings = Settings()
 stats = GameStats(settings)
 
 screen = pygame.display.set_mode(settings.screen_size)
 ship = Ship(screen,settings)
+
 play_button = Button(settings,screen,msg)
 scoreboard = Scoreboard(settings,screen)
 
 
+
 pygame.display.set_caption("飞机大战")
-# enemy.enemy_randomx()
+
 
 
 while True:
@@ -41,17 +40,12 @@ while True:
     gf.create_enemy(enemies, screen, settings,stats)
 
 
-
-
-
-    pygame.sprite.groupcollide(enemies,bullets,True,True)
     gf.ship_hit(ship,enemies,settings,stats)
     gf.hit_screen(screen,enemies)
+    gf.score_stats(settings,enemies,bullets)
     stats.reset_stats(ship,enemies,settings)
 
-
-
     pygame.display.update()
-    # pygame.display.flip()
+
 
 
